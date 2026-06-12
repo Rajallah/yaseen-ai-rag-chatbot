@@ -145,7 +145,3 @@ Everything persona-specific lives in two places:
 - Token streaming to the frontend (Server-Sent Events)
 - Conversation summarization for long chats
 - Dockerfile for one-command setup
-
-## License
-
-[MIT](LICENSE) — feel free to fork this and build your own digital twin.
