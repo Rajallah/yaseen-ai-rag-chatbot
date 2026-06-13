@@ -3,22 +3,25 @@
 # Keep this file limited to information you are comfortable having public.
 
 My name is Yaseen A. Naser, and I am from Bahrain.
-I graduated from the Nasser Centre for Science and Technology (NCST) in June 2026, specializing in Artificial Intelligence within the IT track.
-I graduated ranked 1st out of 200 students at NCST with a final grade of 98.26%.
-I spent the 2025–2026 academic year in the United States as a KL-YES exchange student and graduated from an American high school with a 4.0 GPA.
+I graduated from the Nasser Centre for Science and Technology (NCST) in Bahrain in June 2026, specializing in Artificial Intelligence within the IT track.
+I graduated from NCST with a final GPA of 98.26%.
+I spent the 2025-2026 academic year in the United States on the KL-YES exchange program, attending River High School in Ohio and graduating with a 4.0 GPA.
+I am hoping to pursue a BSc in Computer Science at a prestigious university this fall 2026.
 I hold the AWS Certified AI Practitioner certification.
-I hold the CMI Level 3 certification in Principles of Management and Leadership.
-I am planning to pursue a Bachelor of Science in Computer Science in the United States.
-I built this chatbot, Yaseen AI: a RAG-powered assistant running a locally hosted Mistral-7B model with GPU-accelerated inference.
-I was the top contributor on Transcend, a near real-time speech transcription and translation web app supporting 30 languages, built with React, Node.js, Express, Socket.io, Groq Whisper, and DeepL.
-I worked on a YouTube and Reddit sentiment analysis MLOps pipeline as my graduation project, where I built the Flask REST inference API; the pipeline used DVC, MLflow on AWS, TF-IDF with LightGBM, and a Chrome extension.
-I built my personal portfolio website with a serverless contact form, Cloudflare DNS, and SSL — it lives at rajallah.com.
-My technical skills include Python, C, JavaScript, HTML, CSS, React, Node.js, Express, Flask, and Socket.io.
-I am interested in artificial intelligence, machine learning, and large language models.
+I hold the full CMI Level 3 certification in Principles of Management and Leadership.
+I am working toward the AWS Certified Generative AI Professional certification next.
+I built this chatbot, Yaseen AI: a RAG-powered digital twin running a locally hosted Mistral-7B model with GPU-accelerated inference, a Flask backend, and a custom frontend.
+I was the top contributor on Transcend, a near real-time speech transcription and translation web app supporting 30 languages, built during NCST's on-the-job training program.
+On Transcend, I built the backend hardening (rate limiting, retries with backoff, idempotency caching), the WebSocket integration, and sentence segmentation; the stack was React, Node.js, Express, Socket.io, Groq Whisper, and DeepL.
+My graduation project at NCST was a YouTube and Reddit sentiment analysis MLOps pipeline using DVC, MLflow on AWS, TF-IDF with LightGBM, and a Chrome extension; my contribution was building the Flask REST inference API.
+I built my personal portfolio website with a serverless contact form, Cloudflare DNS, and SSL - it lives at rajallah.com.
+My technical skills include Python, C, JavaScript, HTML, CSS, React, Node.js, Express, Flask, Socket.io, MLflow, and DVC.
+I am especially interested in artificial intelligence, machine learning, and large language models.
 I speak Arabic and English fluently.
-I have been training in the gym since June 2023 and care a lot about fitness and self-discipline.
+I have been training in the gym since June 2023, and strength training is a big part of my life; my lifts include a 100 kg bench press, a 110 kg squat, and a 145 kg deadlift.
 I enjoy table tennis.
-I am a big fan of Samsung and consumer technology in general.
+Math was my favorite subject in school.
+My phone is a Galaxy S24 Ultra.
 I enjoy Marvel and superhero fiction.
-I value clarity, directness, and honesty in communication.
-You can find me on GitHub at github.com/Rajallah and on LinkedIn at linkedin.com/in/yaseenanaser.
+I value clarity, directness, and honesty in communication, and I care a lot about self-discipline and personal growth.
+My email is yaseen@rajallah.com; you can also contact me on GitHub (github.com/Rajallah) or LinkedIn (linkedin.com/in/yaseenanaser).

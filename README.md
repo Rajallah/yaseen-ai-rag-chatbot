@@ -15,8 +15,9 @@ Flask backend (app.py)
       ├── 1. Retriever — keyword-scores every statement in data/persona.txt
       │       and selects the top matches for the user's question
       │
-      ├── 2. Prompt builder — system prompt + retrieved facts + trimmed
-      │       chat history + the new message (Mistral chat template)
+      ├── 2. Prompt builder — persona instructions + retrieved facts injected
+      │       into the current turn (Mistral-Instruct has no system role,
+      │       so llama-cpp-python drops system messages — this avoids that)
       │
       └── 3. llama-cpp-python — runs Mistral-7B-Instruct-v0.2 (GGUF, Q4_K_M)
               locally, optionally offloaded to the GPU
@@ -25,15 +26,15 @@ Flask backend (app.py)
 JSON response → rendered in the chat UI
 ```
 
-The grounding rule is enforced in the system prompt: anything about Yaseen must come **only** from the retrieved facts; if the knowledge base doesn't cover it, the bot says so instead of guessing. General questions (e.g. coding help) are answered normally.
+The grounding rule is enforced in the persona instructions sent with every turn: anything about Yaseen must come **only** from the retrieved facts; if the knowledge base doesn't cover it, the bot says so instead of guessing. General questions (e.g. coding help) are answered normally.
 
 ## Features
 
 - **100% local inference** — no API keys, no data leaves your machine
 - **RAG grounding** over a simple, editable one-fact-per-line knowledge base
 - **GPU acceleration** through llama.cpp CUDA offloading (configurable, falls back to CPU)
-- **Proper Mistral chat templating** via `create_chat_completion` (no hand-rolled `[INST]` strings)
-- **Clean, responsive chat UI** with suggestion chips, typing indicator, and a live server-status dot
+- **Correct Mistral-Instruct prompting** via `create_chat_completion`, with persona + facts injected per turn (Mistral has no system role, and llama-cpp-python silently drops `system` messages in this chat format)
+- **Dark, full-screen chat UI** with suggestion chips, a typing indicator, and a live server-status dot
 - **Configurable via environment variables** — model path, context size, temperature, port, GPU layers
 - `/health` endpoint for quick diagnostics
 
@@ -145,3 +146,7 @@ Everything persona-specific lives in two places:
 - Token streaming to the frontend (Server-Sent Events)
 - Conversation summarization for long chats
 - Dockerfile for one-command setup
+
+## License
+
+[MIT](LICENSE) — feel free to fork this and build your own digital twin.

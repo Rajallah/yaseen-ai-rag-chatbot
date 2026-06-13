@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yaseen AI — RAG Chatbot</title>
     <meta name="description" content="A RAG-powered digital twin of Yaseen A. Naser, running Mistral-7B locally.">
+    <meta name="color-scheme" content="dark">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,54 +15,60 @@
     <div class="app">
 
         <header class="topbar">
-            <div class="identity">
-                <div class="monogram" aria-hidden="true">YN</div>
-                <div class="identity-text">
-                    <h1>Yaseen AI</h1>
-                    <p class="byline">Digital twin of Yaseen A. Naser · Bahrain</p>
+            <div class="inner topbar-inner">
+                <div class="identity">
+                    <div class="monogram" aria-hidden="true">YN</div>
+                    <div class="identity-text">
+                        <h1>Yaseen AI</h1>
+                        <p class="byline">Digital twin of Yaseen A. Naser · Bahrain</p>
+                    </div>
                 </div>
-            </div>
-            <div class="runtime">
-                <span class="status-dot" id="status-dot" title="Server status"></span>
-                <span class="runtime-label" id="runtime-label">MISTRAL-7B · LOCAL · RAG</span>
+                <div class="runtime">
+                    <span class="status-dot" id="status-dot" title="Server status"></span>
+                    <span class="runtime-label" id="runtime-label">MISTRAL-7B · LOCAL · RAG</span>
+                </div>
             </div>
         </header>
         <div class="serration" aria-hidden="true"></div>
 
-        <main class="chat" id="chat" aria-live="polite">
-            <div class="intro" id="intro">
-                <h2>Ask me anything about Yaseen.</h2>
-                <p>Every answer about me is grounded in a verified knowledge base —
-                   retrieved on the fly and fed to a Mistral-7B model running locally.</p>
-                <div class="chips" id="chips">
-                    <button class="chip" type="button">Who are you?</button>
-                    <button class="chip" type="button">What projects have you built?</button>
-                    <button class="chip" type="button">What are your technical skills?</button>
-                    <button class="chip" type="button">How does this chatbot work?</button>
+        <main class="chat" id="chat-scroll">
+            <div class="inner chat-inner" id="chat" aria-live="polite">
+                <div class="intro" id="intro">
+                    <h2>Ask me anything about Yaseen.</h2>
+                    <p>Every answer about me is grounded in a verified knowledge base —
+                       retrieved on the fly and fed to a Mistral-7B model running locally.</p>
+                    <div class="chips" id="chips">
+                        <button class="chip" type="button">Who are you?</button>
+                        <button class="chip" type="button">What projects have you built?</button>
+                        <button class="chip" type="button">What are your technical skills?</button>
+                        <button class="chip" type="button">How does this chatbot work?</button>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <div class="typing" id="typing" hidden>
-            <span></span><span></span><span></span>
+        <div class="composer-band">
+            <div class="inner">
+                <div class="typing" id="typing" hidden>
+                    <span></span><span></span><span></span>
+                </div>
+                <form class="composer" id="composer">
+                    <textarea id="input" rows="1" maxlength="2000"
+                              placeholder="Type a message…" autocomplete="off"></textarea>
+                    <button id="send" type="submit" aria-label="Send message">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                             stroke-linejoin="round" aria-hidden="true">
+                            <path d="M22 2 11 13"></path>
+                            <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+                        </svg>
+                    </button>
+                </form>
+                <footer class="foot">
+                    <p>© 2026 Yaseen A. Naser · Mistral-7B-Instruct (local) · llama.cpp · Flask</p>
+                </footer>
+            </div>
         </div>
-
-        <form class="composer" id="composer">
-            <textarea id="input" rows="1" maxlength="2000"
-                      placeholder="Type a message…" autocomplete="off"></textarea>
-            <button id="send" type="submit" aria-label="Send message">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
-                     stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                     stroke-linejoin="round" aria-hidden="true">
-                    <path d="M22 2 11 13"></path>
-                    <path d="M22 2 15 22 11 13 2 9 22 2z"></path>
-                </svg>
-            </button>
-        </form>
-
-        <footer class="foot">
-            <p>© 2026 Yaseen A. Naser · Mistral-7B-Instruct (local) · llama.cpp · Flask</p>
-        </footer>
     </div>
 
     <script src="script.js"></script>

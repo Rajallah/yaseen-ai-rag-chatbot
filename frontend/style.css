@@ -1,25 +1,27 @@
 /* ==========================================================================
-   Yaseen AI — frontend stylesheet
-   Palette and motifs reference the Bahraini flag: ink navy, paper white,
-   and a single decisive red, with the flag's serrated edge as the
-   signature element.
+   Yaseen AI — frontend stylesheet (dark)
+   Palette and motifs reference the Bahraini flag at night: deep ink navy,
+   off-white text, and one decisive red, with the flag's serrated edge as
+   the signature element.
    ========================================================================== */
 
 :root {
-    --paper: #f4f6f8;
-    --surface: #ffffff;
-    --ink: #121e2c;
-    --muted: #5c6b7a;
-    --line: #dde3e9;
-    --red: #ce1126;
-    --red-dark: #a60d1e;
+    --bg: #0c121c;            /* page background — deep ink navy */
+    --bg-raised: #111927;     /* header / composer band */
+    --surface: #182233;       /* bot bubbles, chips */
+    --line: #263347;          /* hairline borders */
+    --text: #e9eef5;
+    --muted: #8b99ad;
+    --red: #d61f33;           /* Bahrain red, tuned for dark */
+    --red-bright: #ef3349;
+    --user-bubble: #c8142a;
 
     --font-display: "Space Grotesk", sans-serif;
     --font-body: "IBM Plex Sans", sans-serif;
     --font-mono: "IBM Plex Mono", monospace;
 
     --radius: 14px;
-    --maxw: 780px;
+    --col: 860px;             /* readable content column */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,30 +30,42 @@ html, body { height: 100%; }
 
 body {
     font-family: var(--font-body);
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.55;
 }
 
+/* Full-viewport app; content centers inside full-bleed bands */
 .app {
-    max-width: var(--maxw);
-    margin: 0 auto;
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    background: var(--paper);
+}
+
+.inner {
+    width: 100%;
+    max-width: var(--col);
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* --------------------------------------------------------------------------
    Header
    -------------------------------------------------------------------------- */
 .topbar {
+    background: var(--bg-raised);
+    border-bottom: 1px solid var(--line);
+    flex: none;
+}
+
+.topbar-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 18px 20px 14px;
-    background: var(--surface);
+    padding-top: 16px;
+    padding-bottom: 14px;
 }
 
 .identity { display: flex; align-items: center; gap: 14px; min-width: 0; }
@@ -62,7 +76,7 @@ body {
     flex: none;
     display: grid;
     place-items: center;
-    background: var(--ink);
+    background: var(--red);
     color: #fff;
     font-family: var(--font-display);
     font-weight: 700;
@@ -78,6 +92,7 @@ body {
     font-weight: 700;
     font-size: 1.35rem;
     letter-spacing: -0.01em;
+    color: var(--text);
 }
 
 .byline {
@@ -104,11 +119,11 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #c2ccd4;            /* unknown */
+    background: #44546b;            /* unknown */
     flex: none;
 }
-.status-dot.ok    { background: #1d9d57; }
-.status-dot.error { background: var(--red); }
+.status-dot.ok    { background: #2fbf71; box-shadow: 0 0 8px rgba(47, 191, 113, 0.6); }
+.status-dot.error { background: var(--red-bright); box-shadow: 0 0 8px rgba(239, 51, 73, 0.6); }
 
 /* The signature: a Bahraini-flag serrated band under the header */
 .serration {
@@ -128,11 +143,16 @@ body {
 .chat {
     flex: 1;
     overflow-y: auto;
-    padding: 26px 20px 12px;
+    scroll-behavior: smooth;
+}
+
+.chat-inner {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    scroll-behavior: smooth;
+    min-height: 100%;
+    padding-top: 26px;
+    padding-bottom: 18px;
 }
 
 .intro {
@@ -144,15 +164,15 @@ body {
 .intro h2 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
     letter-spacing: -0.015em;
     margin-bottom: 10px;
 }
 
 .intro p {
     color: var(--muted);
-    max-width: 46ch;
-    margin: 0 auto 22px;
+    max-width: 48ch;
+    margin: 0 auto 24px;
     font-size: 0.95rem;
 }
 
@@ -167,7 +187,7 @@ body {
     font-family: var(--font-body);
     font-size: 0.86rem;
     font-weight: 500;
-    color: var(--ink);
+    color: var(--text);
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -175,12 +195,12 @@ body {
     cursor: pointer;
     transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.chip:hover  { border-color: var(--red); transform: translateY(-1px); }
-.chip:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.chip:hover  { border-color: var(--red-bright); transform: translateY(-1px); }
+.chip:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 2px; }
 
 /* Messages */
 .msg {
-    max-width: 78%;
+    max-width: 76%;
     padding: 12px 16px;
     border-radius: var(--radius);
     font-size: 0.95rem;
@@ -191,7 +211,7 @@ body {
 
 .msg.user {
     align-self: flex-end;
-    background: var(--ink);
+    background: var(--user-bubble);
     color: #fff;
     border-bottom-right-radius: 4px;
 }
@@ -205,9 +225,9 @@ body {
 
 .msg.error {
     align-self: flex-start;
-    background: #fdf0f1;
-    border: 1px solid #f3c2c8;
-    color: var(--red-dark);
+    background: rgba(214, 31, 51, 0.12);
+    border: 1px solid rgba(239, 51, 73, 0.45);
+    color: #ff8e9b;
 }
 
 @keyframes rise {
@@ -219,7 +239,7 @@ body {
 .typing {
     display: flex;
     gap: 5px;
-    padding: 6px 22px 10px;
+    padding: 2px 4px 8px;
 }
 .typing span {
     width: 7px;
@@ -237,15 +257,19 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Composer
+   Composer band (input + footer)
    -------------------------------------------------------------------------- */
+.composer-band {
+    flex: none;
+    background: var(--bg-raised);
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+}
+
 .composer {
     display: flex;
     align-items: flex-end;
     gap: 10px;
-    padding: 12px 20px;
-    background: var(--surface);
-    border-top: 1px solid var(--line);
 }
 
 #input {
@@ -257,11 +281,12 @@ body {
     padding: 11px 14px;
     font-family: var(--font-body);
     font-size: 0.95rem;
-    color: var(--ink);
-    background: var(--paper);
+    color: var(--text);
+    background: var(--bg);
     transition: border-color 0.15s ease;
 }
-#input:focus { outline: none; border-color: var(--ink); }
+#input::placeholder { color: var(--muted); }
+#input:focus { outline: none; border-color: var(--red-bright); }
 
 #send {
     flex: none;
@@ -276,18 +301,14 @@ body {
     cursor: pointer;
     transition: background 0.15s ease, transform 0.1s ease;
 }
-#send:hover:not(:disabled)  { background: var(--red-dark); }
+#send:hover:not(:disabled)  { background: var(--red-bright); }
 #send:active:not(:disabled) { transform: scale(0.95); }
 #send:disabled { opacity: 0.45; cursor: not-allowed; }
-#send:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+#send:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 
-/* --------------------------------------------------------------------------
-   Footer
-   -------------------------------------------------------------------------- */
 .foot {
-    padding: 8px 20px 12px;
+    padding: 8px 0 12px;
     text-align: center;
-    background: var(--surface);
 }
 .foot p {
     font-family: var(--font-mono);
@@ -297,8 +318,17 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Small screens & accessibility
+   Scrollbar, small screens & accessibility
    -------------------------------------------------------------------------- */
+.chat::-webkit-scrollbar { width: 10px; }
+.chat::-webkit-scrollbar-track { background: var(--bg); }
+.chat::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 5px;
+    border: 2px solid var(--bg);
+}
+.chat::-webkit-scrollbar-thumb:hover { background: #34445e; }
+
 @media (max-width: 520px) {
     .runtime-label { display: none; }
     .msg { max-width: 88%; }

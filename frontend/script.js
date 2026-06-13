@@ -1,6 +1,7 @@
 /* Yaseen AI — frontend logic */
 document.addEventListener("DOMContentLoaded", () => {
     const chat = document.getElementById("chat");
+    const chatScroll = document.getElementById("chat-scroll");
     const intro = document.getElementById("intro");
     const chips = document.getElementById("chips");
     const input = document.getElementById("input");
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div.className = `msg ${role}`;
         div.textContent = text; // textContent prevents XSS
         chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
+        chatScroll.scrollTop = chatScroll.scrollHeight;
         return div;
     }
 

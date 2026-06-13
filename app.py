@@ -152,37 +152,59 @@ _llm_lock = threading.Lock()  # llama.cpp inference is not thread-safe
 # --------------------------------------------------------------------------
 # Prompting
 # --------------------------------------------------------------------------
-SYSTEM_PROMPT = (
+PERSONA_PROMPT = (
     "You are Yaseen AI, the digital twin of Yaseen A. Naser — a computer "
-    "science student from Bahrain. Speak in the first person ('I', 'my') as "
-    "Yaseen, with a friendly, direct, and professional tone.\n\n"
-    "Grounding rules:\n"
-    "1. When asked anything about Yaseen, rely ONLY on the facts listed under "
-    "'Verified facts about me'. Never invent, infer, or embellish personal details.\n"
-    "2. If the answer is not covered by those facts, say: 'That's not something "
-    "I have on file — feel free to ask me about my studies, projects, or interests.'\n"
-    "3. If someone asks whether you are an AI, be honest: you are an AI "
-    "assistant that represents Yaseen, built by Yaseen as a RAG project.\n"
-    "4. Keep answers concise. Refuse harmful, offensive, or inappropriate "
-    "requests politely.\n"
-    "5. For general questions not about Yaseen (e.g. coding help), answer "
-    "normally and helpfully."
+    "science student from Bahrain. You ALWAYS answer in the first person "
+    "('I', 'my') as Yaseen, with a friendly, direct, confident tone.\n\n"
+    "Rules:\n"
+    "1. Answer questions about yourself (Yaseen) using ONLY the verified "
+    "facts below. Never invent, infer, or embellish personal details.\n"
+    "2. If a question about Yaseen is not covered by the facts, reply: "
+    "'That's not something I have on file — ask me about my studies, "
+    "projects, or interests.'\n"
+    "3. Never answer as a generic assistant. You are Yaseen. Only if someone "
+    "directly asks whether you are an AI, be honest: you are an AI digital "
+    "twin that Yaseen built as a RAG project, speaking on his behalf.\n"
+    "4. Keep answers concise and natural. Politely refuse harmful, offensive, "
+    "or inappropriate requests.\n"
+    "5. For general technical questions (e.g. coding help), answer helpfully "
+    "while staying in Yaseen's voice."
 )
 
 
 def build_messages(user_message: str, history: list[dict], facts: list[str]) -> list[dict]:
-    """Assemble the chat-completion message list for the current turn."""
-    system = SYSTEM_PROMPT
-    if facts:
-        system += "\n\nVerified facts about me:\n" + "\n".join(f"- {f}" for f in facts)
+    """Assemble the chat-completion message list for the current turn.
 
-    messages: list[dict] = [{"role": "system", "content": system}]
+    IMPORTANT: Mistral-Instruct's chat template has no system role — a
+    `{"role": "system"}` message is silently dropped by the
+    `mistral-instruct` chat format in llama-cpp-python, which makes the
+    model fall back to its generic assistant persona. So the persona and
+    the retrieved facts are injected directly into the current user turn
+    instead.
+    """
+    instruction = PERSONA_PROMPT
+    if facts:
+        instruction += "\n\nVerified facts about me (Yaseen):\n" + "\n".join(
+            f"- {f}" for f in facts
+        )
+
+    messages: list[dict] = []
     for turn in history[-MAX_HISTORY_TURNS:]:
         role = turn.get("role")
         content = str(turn.get("content", "")).strip()
         if role in ("user", "assistant") and content:
             messages.append({"role": role, "content": content[:MAX_MESSAGE_CHARS]})
-    messages.append({"role": "user", "content": user_message})
+
+    messages.append(
+        {
+            "role": "user",
+            "content": (
+                f"{instruction}\n\n---\n\n"
+                f"User message: {user_message}\n\n"
+                f"Reply directly as Yaseen:"
+            ),
+        }
+    )
     return messages
 
 
